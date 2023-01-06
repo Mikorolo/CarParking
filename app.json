@@ -24,10 +24,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.carparking",
+      "useNextNotificationsApi": true
     },
+    "plugins": [
+      "@notifee/react-native"
+    ],
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bf6b7de5-e373-40c9-ba61-a64acecac1c6"
+      }
     }
   }
 }

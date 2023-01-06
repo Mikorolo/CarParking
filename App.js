@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StatusBar } from "react-native";
+import { NativeBaseProvider, ToastProvider } from "native-base";
+import AuthProvider from "./src/context/AuthProvider";
+import NavRoot from "./src/Navigation/NavRoot";
+import { useFonts } from "expo-font";
+import { Provider as PaperProvider } from 'react-native-paper';
+import * as Notifications from "expo-notifications";
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+  return {
+  shouldShowAlert: true
+  }}
+  })
 
-export default function App() {
+function App() {
+  const [loaded] = useFonts({
+    'Roboto-Medium': require('./assets/fonts/roboto/Roboto-Medium.ttf'),
+    'Roboto-Regular': require('./assets/fonts/roboto/Roboto-Regular.ttf'),
+    'Roboto-MediumItalic': require('./assets/fonts/roboto/Roboto-MediumItalic.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthProvider>
+      <NativeBaseProvider>
+        <ToastProvider>
+          <PaperProvider>
+            <NavRoot />
+          </PaperProvider>
+        </ToastProvider>
+      </NativeBaseProvider>
+    </AuthProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
